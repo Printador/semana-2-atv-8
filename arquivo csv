@@ -1,15 +1,19 @@
 import pandas as pd
 
+#df = dataframe, é o apelido dado ao arquivo csv para ser manipulado no código
+
 df = pd.read_csv("notas_alunos.csv", sep = ",")
 print(df)
 
 faltas=(df["faltas"])
 
 df["media"] = ((df["nota_1"] + df["nota_2"]) / 2)
-df["situacao"] = faltas
+df["situacao"] = 0
 
 df.loc[df["faltas"] > 5, "situacao"] = "Reprovado" 
-df.loc[df["faltas"] <= 6, "situacao"] = "Aprovado" 
+df.loc[df["faltas"] <= 6, "situacao"] = "Aprovado"
+df.loc[df["media"] < 7, "situacao"] = "Reprovado"
+
 print("\n")
 print(df)
 
