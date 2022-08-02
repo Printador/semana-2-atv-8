@@ -1,0 +1,26 @@
+import pandas as pd
+
+df = pd.read_csv("notas_alunos.csv", sep = ",")
+print(df)
+
+faltas=(df["faltas"])
+
+df["media"] = ((df["nota_1"] + df["nota_2"]) / 2)
+df["situacao"] = faltas
+
+df.loc[df["faltas"] > 5, "situacao"] = "Reprovado" 
+df.loc[df["faltas"] <= 6, "situacao"] = "Aprovado" 
+print("\n")
+print(df)
+
+mfaltas = df["faltas"].max()
+print("\nO maior número de faltas é: "+str(mfaltas)) 
+
+mmedia = df["media"].max()
+print("A maior média é: "+str(mmedia))
+
+mgeral = df["media"].median()
+print("A média geral: "+str(mgeral))
+print("\n")
+
+df.to_csv("alunos_situacao.csv")
